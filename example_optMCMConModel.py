@@ -13,18 +13,19 @@ import tulipAC as ac
 import numpy as np
 import matplotlib.pyplot as plt
 import time
-
+from parsion_sol import regmat
 t1=time.process_time()
 # MAIN FUNCTION
-def main(fileName,power):
+def main(fileName,power,metric):
 
   # Set Model
   model = cm.cmBertiniSolverModel(fileName)
   modelType = fileName.split("_")[1]
+  print(modelType)
   # SEt power
-  model.setExponent(power)
+  model.setExponent(1)
   # add solution
-  # sol=uq.stdVec()
+  #sol=uq.stdVec()
 
   # for loopA in range(9):
   #   sol.push_back(0.0)
@@ -52,8 +53,12 @@ def main(fileName,power):
   #data = np.loadtxt('paramTraces.txt',skiprows=1)
   data = np.loadtxt('paramTraces_' + str(modelType),skiprows=1)
   # SubSample
-  print(np.random.choice(data.shape[0], totInitialGuess))
-  data = data[np.random.choice(data.shape[0], totInitialGuess),2:]
+  dist = np.exp(data[:,1])/np.sum(np.exp(data[:,1]))
+  print(np.random.choice(data.shape[0], totInitialGuess,p=dist))
+  if metric == 1:
+    data = data[np.random.choice(data.shape[0], totInitialGuess),2:]
+  else:
+    data = data[np.random.choice(data.shape[0], totInitialGuess,p=dist),2:]
 
   # Loop over the randomly selected initial guess
   results = np.zeros((totInitialGuess,model.getParameterTotal()))
@@ -88,19 +93,20 @@ def main(fileName,power):
 
   #calculate cpu time
   cputime = time.process_time()-t1
+  nsol = regmat(modelType)
   print(cputime)
-  file = "cputime.txt"
+  file = "cputime_sol.txt"
   if os.path.exists(file):
     append_write = 'a' # append if already exists
   else:
     append_write = 'w' # make a new file if not
   cpu = open(file,append_write)
-  cpu.write("%s %.f %.5f \n" %(modelType,power,cputime))
+  cpu.write("%s %d %.f %.5f %d \n" %(modelType,metric,power,cputime,nsol))
   cpu.close() 
 # ====
 # MAIN
 # ====
 if __name__ == "__main__":
 	
-  main(sys.argv[1],int(sys.argv[2]))
+  main(sys.argv[1],int(sys.argv[2]),int(sys.argv[3]))
   
