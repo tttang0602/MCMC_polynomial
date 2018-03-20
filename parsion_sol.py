@@ -64,8 +64,8 @@ def delpt(point, fileName,res):
 def regmat(modeltype):
 	fileName = 'sol_'+str(modeltype)
 	#load optimal points
-	data = np.loadtxt('OptimalPoints_'+str(modeltype))
-	data_v = np.loadtxt('OptimalValue_'+str(modeltype)) 
+	data = np.loadtxt('Datafiles/OptimalPoints_'+str(modeltype))
+	data_v = np.loadtxt('Datafiles/OptimalValue_'+str(modeltype)) 
 	
 
 	#data = np.loadtxt('r3R5P.txt')
