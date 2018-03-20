@@ -1,0 +1,36 @@
+# Carefull: variable names are case sensitive
+
+# Dimensionality and Number of Equations
+# The problem dimensionality is specified through the variable "dims"
+# this is the size of the parameter vector "x"
+# The number of equations is specified through the variable "numEq"
+
+dims := 4;
+numEq := 4;
+
+# The vector "limits" of size equal to 2*dims is used
+# to specify the ranges of the parameter "x"
+
+limits[0] := -1.0; limits[1] := 1.0;
+limits[2] := -1.0; limits[3] := 1.0;
+limits[4] := -1.0; limits[5] := 1.0;
+limits[6] := -1.0; limits[7] := 1.0;
+
+# The vector "initPoint" of size equal to dims is used
+# to specify the defult parameter values
+
+initPoint[0] := 0;
+initPoint[1] := 0;
+initPoint[2] := 0;
+initPoint[3] := 0;
+
+# The non linear system of equations is specified by
+# entering the parameter vector "x" and the equation vector "eq"
+
+eq[0] := 10*(1.0/12.0-1.0/3.0*(x[0]*x[3]-x[1]*x[2]+x[0]));
+eq[1] := 10*(-1.0/12.0-1.0/3.0*(x[1]*x[2]-x[0]*x[3]+x[1]));
+eq[2] := 10*(1-x[0]*x[0]-x[2]*x[2]);
+eq[3] := 10*(1-x[1]*x[1]-x[3]*x[3]);
+# Final Function Value
+
+eq[0]^2+eq[1]^2+eq[2]^2+eq[3]^2;
