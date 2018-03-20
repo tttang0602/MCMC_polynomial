@@ -72,7 +72,7 @@ def adam(alp,b1,b2,model,init):
 	x = agnp.float64(init)
 	accf = model(x)
 
-	while (tol > 1.0e-3) | (accf > 8e-5):
+	while (tol > 1.0e-3) | (accf > 1e-5):
 		t += 1;
 		g = gradi(x)
 		m = b1*m+(1-b1)*g
