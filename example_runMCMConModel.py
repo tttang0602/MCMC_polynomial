@@ -1,8 +1,7 @@
 # Imports
 import sys,os
 # Set library path
-sys.path.insert(0,'/home/tang/Documents/tulipBin/py')
-
+sys.path.insert(0, '/afs/crc.nd.edu/group/tulip/01_code/01_tulip/tulipBIN/py')
 # Import UQ Library
 import tulipUQ as uq
 # Import Computational Model Library
@@ -15,39 +14,30 @@ import tulipAC as ac
 import scipy.io
 import numpy as np
 from mpi4py import MPI
-from constants import *
 
+import time
+
+t1=time.process_time()
 # MAIN FUNCTION
-def main(modelType,comm):
-
+def main(fileName,power,comm):
+  
   # MPI Init
   rank = comm.Get_rank()
   size = comm.Get_size()
 
   # Set Model
-  if(modelType == kPointAndCircle):
-  	model = cm.cmAnalyticalExpressionModel(cm.kPointAndCircle)
-  elif(modelType == kAlphaCurve):
-    model = cm.cmAnalyticalExpressionModel(cm.kAlphaCurve)
-  elif(modelType == kKuramoto):
-    model = cm.cmAnalyticalExpressionModel(cm.kKuramoto)
-  elif(modelType == kWhitneyUmbrella):
-    model = cm.cmAnalyticalExpressionModel(cm.kWhitneyUmbrella)    
-  elif(modelType == kPosdim):
-    model = cm.cmAnalyticalExpressionModel(cm.kPosdim)    
-  elif(modelType == kSeller):
-    model = cm.cmAnalyticalExpressionModel(cm.kSeller)    
-  elif(modelType == kEnergyLandscape):
-    model = cm.cmAnalyticalExpressionModel(cm.kEnergyLandscape)    
-  elif(modelType == kKuramotoReform):
-    model = cm.cmAnalyticalExpressionModel(cm.kKuramotoReform)
-  elif(modelType == kEnergyLandscapeopt):
-    model = cm.cmAnalyticalExpressionModel(cm.kEnergyLandscapeopt)    
-  else:
-    print('Error: Invalid Model.')
-    sys.exit(-1)
+  model = cm.cmBertiniSolverModel(fileName)
 
-  # Set DREAM Parameters
+  modelType = fileName.split("_")[1]
+  # SEt power
+  model.setExponent(1/power)
+  # add solution
+  sol=uq.stdVec()
+  
+  # for loopA in range(9):
+  #   sol.push_back(0.0)
+  # model.addSolution(sol) # Set DREAM Parameters
+ 
   totChains         = size
   totGenerations    = 30000
   totalCR           = 3
@@ -88,7 +78,6 @@ def main(modelType,comm):
                            priorFileName,
                            priorModelType)
 
-
   # Set Model
   dream.setModel(model)
 
@@ -103,29 +92,9 @@ def main(modelType,comm):
     debugMode = False
     burnInPercent = 0.1
     dream.postProcess(debugMode,burnInPercent);
+     # Rename File
+    os.rename('paramTraces.txt','paramTraces_' + str(modelType))
 
-    # Rename File
-    if(modelType == kPointAndCircle):
-      os.rename('paramTraces.txt','paramTraces_01.txt')
-    elif(modelType == kAlphaCurve):
-      os.rename('paramTraces.txt','paramTraces_02.txt')
-    elif(modelType == kKuramoto):
-      os.rename('paramTraces.txt','paramTraces_03.txt')
-    elif(modelType == kWhitneyUmbrella):
-      os.rename('paramTraces.txt','paramTraces_04.txt')
-    elif(modelType == kPosdim):
-      os.rename('paramTraces.txt','paramTraces_05.txt')
-    elif(modelType == kSeller):
-      os.rename('paramTraces.txt','paramTraces_06.txt')
-    elif(modelType == kEnergyLandscape):
-      os.rename('paramTraces.txt','paramTraces_07.txt')
-    elif(modelType == kKuramotoReform):
-      os.rename('paramTraces.txt','paramTraces_08.txt')
-    elif(modelType == kEnergyLandscapeopt):
-      os.rename('paramTraces.txt','paramTraces_09.txt')
-    else:
-      print('Error: Invalid Model.')
-      sys.exit(-1)
 
 # ====
 # MAIN
@@ -138,5 +107,5 @@ if __name__ == "__main__":
   size = comm.Get_size()
 
   # Run Main Function
-  main(int(sys.argv[1]),comm)
-
+  main(sys.argv[1],int(sys.argv[2]),comm)
+  print(time.process_time()-t1)
