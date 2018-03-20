@@ -1,5 +1,5 @@
 import os,sys
-sys.path.insert(0, '/afs/crc.nd.edu/group/tulip/01_code/01_tulip/tulipBIN/py')
+
 import numpy as np
 import matplotlib.pyplot as plt
 def main(modelname,power,metric):

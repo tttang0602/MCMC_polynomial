@@ -1,7 +1,8 @@
 # Imports
 import sys,os
 # Set library path
-sys.path.insert(0, '/afs/crc.nd.edu/group/tulip/01_code/01_tulip/tulipBIN/py')
+#sys.path.insert(0, '/afs/crc.nd.edu/group/tulip/01_code/01_tulip/tulipBIN/py')
+sys.path.insert(0,'/home/tang/Documents/tulipBIN/py')
 # Import UQ Library
 import tulipUQ as uq
 # Import Computational Model Library
@@ -12,6 +13,7 @@ import tulipDA as da
 import tulipAC as ac
 # Import Mat File From MATLAB
 import scipy.io
+import shutil
 import numpy as np
 from mpi4py import MPI
 
@@ -93,7 +95,7 @@ def main(fileName,power,comm):
     burnInPercent = 0.1
     dream.postProcess(debugMode,burnInPercent);
      # Rename File
-    os.rename('paramTraces.txt','paramTraces_' + str(modelType))
+    shutil.move('paramTraces.txt','Datafiles/paramTraces_' + str(modelType))
 
 
 # ====
