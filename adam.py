@@ -72,7 +72,7 @@ def adam(alp,b1,b2,model,init):
 	x = agnp.float64(init)
 	accf = model(x)
 
-	while (tol > 1.0e-3) | (accf > 8e-1):
+	while (tol > 1.0e-3) | (accf > 8e-5):
 		t += 1;
 		g = gradi(x)
 		m = b1*m+(1-b1)*g
@@ -85,16 +85,17 @@ def adam(alp,b1,b2,model,init):
 	return (x, accf)
 
 if __name__ == '__main__':
+	# Record the cputime for optimizing one point
 	t1=time.process_time()
-	model =bvp
-	data = agnp.loadtxt('paramTraces_bvp.txt',skiprows=1)
+
+	# Set the model type and initial poitn
+	model = 'bvp'
+	data = agnp.loadtxt('paramTraces_'+str(model)+'.txt',skiprows=1)
 	init =  data[agnp.random.choice(1),2:]
-	#t,accf=adam(0.001,0.9,0.999,model,init)
+	# Run the adam method on the model
+	t,accf=adam(0.001,0.9,0.999,eval(model),init)
+	cputime = time.process_time()-t1
+	print(t,accf,bvp(t),cputime)
+	# compute and show the gradient of the optimal point if needed
 	gradi=grad(bvp)
-	tt=agnp.array([2.46372917,  2.27559646  ,2.0060732  , 1.70833523 , 1.46246037 , 1.32661059,
-  1.31520979 , 1.4052676  , 1.52220994  ,1.59441577  ,1.56800426 , 1.48610163,
-  1.45399811  ,1.5690482   ,1.8111774   ,2.1323249  , 2.2147605   ,1.7708001,
-  0.83824345  ,0.12272874 ,-0.30528073])
-	print(gradi(tt))
-	#cputime = time.process_time()-t1
-	#print(t,accf,bvp(t),cputime)
+	print(gradi(t))
