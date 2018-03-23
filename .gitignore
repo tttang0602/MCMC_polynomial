@@ -1,6 +1,5 @@
 #ignore file type
 *.txt
-*.pdf
 
 #except input files
 !input*.txt
