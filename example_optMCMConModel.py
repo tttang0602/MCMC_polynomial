@@ -12,6 +12,7 @@ import tulipAC as ac
 # Import numpy and matplotlib
 import numpy as np
 import matplotlib.pyplot as plt
+import sobol_seq as sob
 import time
 from parsion_sol import regmat
 t1=time.process_time()
@@ -48,17 +49,27 @@ def main(fileName,power,metric):
   # Total Number of iterations
   totInitialGuess = 100
   totRestarts     = 20
+#####################################################################################3
+  ##############3 GENERATE DATA SAMPLES ######################
 
-  # Read MCMC Samples and sub-samples using totInitialGuess
-  #data = np.loadtxt('paramTraces.txt',skiprows=1)
-  data = np.loadtxt('Datafiles/paramTraces_' + str(modelType),skiprows=1)
-  # SubSample
-  dist = np.exp(data[:,1])/np.sum(np.exp(data[:,1]))
-  print(np.random.choice(data.shape[0], totInitialGuess,p=dist))
-  if metric == 1:
-    data = data[np.random.choice(data.shape[0], totInitialGuess),2:]
-  else:
-    data = data[np.random.choice(data.shape[0], totInitialGuess,p=dist),2:]
+  # # Read MCMC Samples and sub-samples using totInitialGuess
+  # #data = np.loadtxt('paramTraces.txt',skiprows=1)
+  #  data = np.loadtxt('Datafiles/paramTraces_' + str(modelType),skiprows=1)
+  
+
+  # # SubSample
+  # dist = np.exp(data[:,1])/np.sum(np.exp(data[:,1]))
+  # print(np.random.choice(data.shape[0], totInitialGuess,p=dist))
+  # if metric == 1:
+  #   data = data[np.random.choice(data.shape[0], totInitialGuess),2:]
+  # else:
+  #   data = data[np.random.choice(data.shape[0], totInitialGuess,p=dist),2:]
+
+
+  # Using sobol sequence instead of MCMC
+  data  =  sob.i4_sobol_generate(2,totInitialGuess)
+  data  = data*2*np.pi
+ ###################################################################
 
   # Loop over the randomly selected initial guess
   results = np.zeros((totInitialGuess,model.getParameterTotal()))
