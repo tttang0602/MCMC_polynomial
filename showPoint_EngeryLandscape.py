@@ -22,31 +22,32 @@ def plotGraphs():
   totSamples = 20000
   
    # Read MCMC Sample Data
-  data7 = np.loadtxt('paramTraces_07.txt',skiprows=1)
-  data7 = data7[:totSamples,5:8]
-
+  data7 = np.loadtxt('Datafiles/paramTraces_EL.txt',skiprows=1)
+  data7 = data7[:totSamples,2:]
+  
+ 
 
   #  Read Optimal Points
-  opt7 = np.loadtxt('OptimalPoints_07.txt')
+  opt7 = np.loadtxt('Datafiles/OptimalPoints_EL.txt')
   opt7s = opt7[:totSamples,0:3]
   opt7df = pandas.DataFrame(opt7)
   colname =["x1","x2","x3","x4","x5","x6","x7","x8","x9"]
   opt7df.columns = colname
   sns.set_style("whitegrid")
-  ax = sns.stripplot(data = opt7df)
+  ax = sns.boxplot(data = opt7df)
   ax.set(xlabel='variables',ylabel='solutions',title="M:50, MCMC_P:0.2, OPT_P:5")
   plt.show()
   sys.exit(-1) 
   fig = plt.figure()
 
-  ax = fig.add_subplot(2,1,1,projection = '3d')
-  ax.scatter(data7[:,0],data7[:,1],data7[:,2],c = 'b',marker = 'o')
-  ax.set_xlim([-10,10])
-  ax.set_ylim([-10,10])
-  ax.set_zlim([-10,10])  
-  ax.set_xlabel('x7')
-  ax.set_ylabel('x8')
-  ax.set_zlabel('x9') 
+  # ax = fig.add_subplot(2,1,1,projection = '3d')
+  # ax.scatter(data7[:,0],data7[:,1],data7[:,2],c = 'b',marker = 'o')
+  # ax.set_xlim([-10,10])
+  # ax.set_ylim([-10,10])
+  # ax.set_zlim([-10,10])  
+  # ax.set_xlabel('x7')
+  # ax.set_ylabel('x8')
+  # ax.set_zlabel('x9') 
 
   ax = fig.add_subplot(2,1,2,projection = '3d')
   ax.scatter(opt7[:,0],opt7[:,1],opt7[:,2],c = 'r',marker = 'o')

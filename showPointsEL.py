@@ -40,12 +40,12 @@ def plotGraphs():
   levels = np.array([0.0,1.0,10.0,100.0,500.0])
 
   # Read MCMC Sample Data
-  data = np.loadtxt('paramTraces_07.txt',skiprows=1)
+  data = np.loadtxt('Datafiles/paramTraces_EL.txt',skiprows=1)
   print(data.shape)
   data = data[:totSamples,2:11]
 
   #  Read Optimal Points
-  opt = np.loadtxt('OptimalPoints_07.txt')
+  opt = np.loadtxt('Datafiles/OptimalPoints_EL.txt')
 
   # Get Dimensions
   totDims = data.shape[1]
@@ -88,7 +88,7 @@ def plotGraphs():
 
 
   plt.tight_layout()
-  plt.savefig('sample_Distribution_randp0.3_.pdf')
+  plt.savefig('Graphes\sample_Distribution_randp.pdf')
   #plt.show()
 
 # =============

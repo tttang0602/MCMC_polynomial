@@ -90,7 +90,7 @@ if __name__ == '__main__':
 
 	# Set the model type and initial poitn
 	model = 'bvp'
-	data = agnp.loadtxt('paramTraces_'+str(model)+'.txt',skiprows=1)
+	data = agnp.loadtxt('Datafiles/paramTraces_'+str(model)+'.txt',skiprows=1)
 	init =  data[agnp.random.choice(1),2:]
 	# Run the adam method on the model
 	t,accf=adam(0.001,0.9,0.999,eval(model),init)

@@ -12,23 +12,23 @@ def plotGraphs():
   totSamples = 20000
   levels = np.array([0.0,0.01,0.2,0.4,0.6])
 
-  # Read MCMC Sample Data
-  data1 = np.loadtxt('paramTraces_01.txt',skiprows=1)
-  data1 = data1[:totSamples,2:]
-  data2 = np.loadtxt('paramTraces_02.txt',skiprows=1)
-  data2 = data2[:totSamples,2:]
-  data3 = np.loadtxt('paramTraces_03.txt',skiprows=1)
-  data3 = data3[:totSamples,2:]
-  data8 = np.loadtxt('paramTraces_08.txt',skiprows=1)
-  data8 = data8[:totSamples,4:]
-  print(data8.shape)
+  # # Read MCMC Sample Data
+  # data1 = np.loadtxt('paramTraces_01.txt',skiprows=1)
+  # data1 = data1[:totSamples,2:]
+  # data2 = np.loadtxt('paramTraces_02.txt',skiprows=1)
+  # data2 = data2[:totSamples,2:]
+  # data3 = np.loadtxt('paramTraces_03.txt',skiprows=1)
+  # data3 = data3[:totSamples,2:]
+  # data8 = np.loadtxt('paramTraces_08.txt',skiprows=1)
+  # data8 = data8[:totSamples,4:]
+  # print(data8.shape)
   
   #  ReadOptimal Points
-  opt1 = np.loadtxt('OptimalPoints_01.txt')
-  opt2 = np.loadtxt('OptimalPoints_02.txt')
-  opt3 = np.loadtxt('OptimalPoints_03.txt')
-  opt8 = np.loadtxt('OptimalPoints_08.txt')
-  opt8 = opt8[:totSamples,:]
+  opt8 = np.loadtxt('Datafiles/OptimalPoints_refKuromoto.txt')
+  # opt2 = np.loadtxt('OptimalPoints_02.txt')
+  # opt3 = np.loadtxt('OptimalPoints_03.txt')
+  # opt8 = np.loadtxt('OptimalPoints_08.txt')
+  # opt8 = opt8[:totSamples,:]
 
 
 
@@ -50,43 +50,43 @@ def plotGraphs():
       +np.abs(-1/12.0-1/3.0*(-np.sqrt(1-X8**2)*Y8+np.sqrt(1-Y8**2)*X8+np.sqrt(1-Y8**2))) \
 
 
-  plt.figure(figsize=(8,6))
-  ax = plt.subplot(2,3,1)
-  ax.plot(data1[:,0],data1[:,1],'bo',markersize=1,alpha=0.5)
-  ax.contour(X, Y, Z1, levels)
-  ax.set_title('First Curve')
-  ax.set_xlim([-3.0,3.0])
-  ax.set_ylim([-3.0,3.0])
+ #  plt.figure(figsize=(8,6))
+ #  ax = plt.subplot(2,3,1)
+ #  ax.plot(data1[:,0],data1[:,1],'bo',markersize=1,alpha=0.5)
+ #  ax.contour(X, Y, Z1, levels)
+ #  ax.set_title('First Curve')
+ #  ax.set_xlim([-3.0,3.0])
+ #  ax.set_ylim([-3.0,3.0])
 
-  ax = plt.subplot(2,3,2)
-  ax.plot(data2[:,0],data2[:,1],'bo',markersize=1,alpha=0.5)
-  ax.contour(X, Y, Z2, levels)
-  ax.set_title('Alpha Curve')
-  ax.set_xlim([-3.0,3.0])
-  ax.set_ylim([-3.0,3.0])
+ #  ax = plt.subplot(2,3,2)
+ #  ax.plot(data2[:,0],data2[:,1],'bo',markersize=1,alpha=0.5)
+ #  ax.contour(X, Y, Z2, levels)
+ #  ax.set_title('Alpha Curve')
+ #  ax.set_xlim([-3.0,3.0])
+ #  ax.set_ylim([-3.0,3.0])
 
-  ax = plt.subplot(2,3,3)
-  ax.plot(data3[:,0],data3[:,1],'bo',markersize=1,alpha=0.5)
-  ax.contour(t1, t2, Z3, levels)
-  ax.set_title('Kuramoto')
-  ax.set_xlim([0,2*np.pi])
-  ax.set_ylim([0,2*np.pi])
+ #  ax = plt.subplot(2,3,3)
+ #  ax.plot(data3[:,0],data3[:,1],'bo',markersize=1,alpha=0.5)
+ #  ax.contour(t1, t2, Z3, levels)
+ #  ax.set_title('Kuramoto')
+ #  ax.set_xlim([0,2*np.pi])
+ #  ax.set_ylim([0,2*np.pi])
 
-  ax = plt.subplot(2,3,4)
-  ax.plot(opt1[:,0],opt1[:,1],'ro',markersize=4,alpha=0.6)
-  ax.contour(X, Y, Z1, levels)
-  ax.set_xlim([-3.0,3.0])
-  ax.set_ylim([-3.0,3.0])
+ #  ax = plt.subplot(2,3,4)
+ #  ax.plot(opt1[:,0],opt1[:,1],'ro',markersize=4,alpha=0.6)
+ #  ax.contour(X, Y, Z1, levels)
+ #  ax.set_xlim([-3.0,3.0])
+ #  ax.set_ylim([-3.0,3.0])
 
-  ax = plt.subplot(2,3,5)
-  ax.plot(opt2[:,0],opt2[:,1],'ro',markersize=4,alpha=0.6)
-  ax.contour(X, Y, Z2, levels)
-  ax.set_xlim([-3.0,3.0])
-  ax.set_ylim([-3.0,3.0])
+ #  ax = plt.subplot(2,3,5)
+ #  ax.plot(opt2[:,0],opt2[:,1],'ro',markersize=4,alpha=0.6)
+ #  ax.contour(X, Y, Z2, levels)
+ #  ax.set_xlim([-3.0,3.0])
+ #  ax.set_ylim([-3.0,3.0])
 
   ax = plt.subplot(2,3,6)
  
-  ax.plot(np.sin(opt3[:,0]),np.sin(opt3[:,1]),'ro',markersize=4,alpha=0.6)
+  #ax.plot(np.sin(opt3[:,0]),np.sin(opt3[:,1]),'ro',markersize=4,alpha=0.6)
   ax.plot((opt8[:,0]),(opt8[:,1]),'go',markersize=4,alpha=0.6)
   ax.contour(t1, t2, Z3, levels)
  
@@ -102,10 +102,10 @@ def plotGraphs():
   #sys.exit(-1)
   
   fig1 =plt.figure()
-  ax = fig1.add_subplot(2,1,1)
-  ax.plot(data8[:,0],data8[:,1],'bo',markersize=2,alpha=0.6)
-  ax.set_xlim([-1,1])
-  ax.set_ylim([-1,1])
+  # ax = fig1.add_subplot(2,1,1)
+  # ax.plot(data8[:,0],data8[:,1],'bo',markersize=2,alpha=0.6)
+  # ax.set_xlim([-1,1])
+  # ax.set_ylim([-1,1])
   
   ax = fig1.add_subplot(2,1,2)
   ts1=opt8[:,0]**2+opt8[:,2]**2
