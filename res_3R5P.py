@@ -38,12 +38,24 @@ def eval_model():
 		res[i,:]=np.abs(eval(data[i,:]))
 	n_res=np.max(res,axis=0)
 	print(n_res)
+	
+def dist_sol(x):
+	exact=data = np.loadtxt('r3R5P.txt',skiprows=0)
+	data = np.transpose(data[:,:-1])
+	rdist=np.empty(x.shape[0])
+	dist = np.empty(24)
+	for i in range(x.shape[1]):
+		for j in range(24):
+			dist[j] =  np.linalg.norm(x[i,:]-data[j,:])
+		rdist[i]=np.min(dist)
+	return rdist	
 
 
 
 if __name__ == '__main__':
 	extsol = np.loadtxt('r3R5P.txt')
-	n_range = np.min(extsol[:,:-1],axis =1)
-	print(n_range)
+	res =eval(extsol[:,25])
+	#n_range = np.min(extsol[:,:-1],axis =1)
+	print(res,extsol[:,25])
 	sys.exit(-1)
 	eval_model()
