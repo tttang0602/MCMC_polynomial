@@ -1,4 +1,5 @@
 #imports
+import os,sys
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.mlab as mlab
@@ -26,14 +27,21 @@ def plotres():
 	plt.tight_layout() 
 	plt.savefig(r'Histogram_residual_3R5P.pdf')
 	plt.show()
+<<<<<<< HEAD
 def plotfval():
 	x = np.loadtxt('paramTraces_3R5P.txt',skiprows=1)
+=======
+def plotfval(model):
+	path = str(os.getcwd())+'/Graphes'
+	x = np.loadtxt('paramTraces_'+str(model)+'.txt',skiprows=1)
+>>>>>>> 3cab1c1147f7a3ae1718174a07ca93f7871363f7
 	x = x[:,1]
 	num_bins =100
 	n,bins,patches = plt.hist(x,num_bins,normed=1,facecolor = 'blue',alpha=0.5)
 	plt.subplots_adjust(left = 0.15)
 	plt.title('Histogram of function value')
+	plt.savefig('Graphes/Distribution_%s.pdf' %model)
 	plt.show()
 
 if __name__ == '__main__':
-	plotfval()
+	plotfval('karumoto')

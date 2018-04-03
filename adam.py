@@ -68,7 +68,11 @@ def adam(alp,b1,b2,model,init):
 	x = agnp.float64(init)
 	accf = model(x)
 
+<<<<<<< HEAD
 	while (tol > 1.0e-3) | (accf > 8e-8):
+=======
+	while (tol > 1.0e-3) | (accf > 1e-5):
+>>>>>>> 3cab1c1147f7a3ae1718174a07ca93f7871363f7
 		t += 1;
 		g = gradi(x)
 		m = b1*m+(1-b1)*g
@@ -81,7 +85,9 @@ def adam(alp,b1,b2,model,init):
 	return (x, accf)
 
 if __name__ == '__main__':
+	# Record the cputime for optimizing one point
 	t1=time.process_time()
+<<<<<<< HEAD
 	model =karumoto
 	#data = agnp.loadtxt('paramTraces_3R5P.txt',skiprows=1)
 	#init =  data[agnp.random.choice(1),2:]
@@ -111,3 +117,17 @@ if __name__ == '__main__':
 	print(agnp.linalg.norm(gradi(t))/(agnp.linalg.norm(model(t))/agnp.linalg.norm(t)))
 	cputime = time.process_time()-t1
 	print(t,accf,model(t),cputime)
+=======
+
+	# Set the model type and initial poitn
+	model = 'bvp'
+	data = agnp.loadtxt('paramTraces_'+str(model)+'.txt',skiprows=1)
+	init =  data[agnp.random.choice(1),2:]
+	# Run the adam method on the model
+	t,accf=adam(0.001,0.9,0.999,eval(model),init)
+	cputime = time.process_time()-t1
+	print(t,accf,bvp(t),cputime)
+	# compute and show the gradient of the optimal point if needed
+	gradi=grad(bvp)
+	print(gradi(t))
+>>>>>>> 3cab1c1147f7a3ae1718174a07ca93f7871363f7

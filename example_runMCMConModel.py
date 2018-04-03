@@ -13,6 +13,7 @@ import tulipDA as da
 import tulipAC as ac
 # Import Mat File From MATLAB
 import scipy.io
+import shutil
 import numpy as np
 from mpi4py import MPI
 
@@ -94,7 +95,7 @@ def main(fileName,power,comm):
     burnInPercent = 0.1
     dream.postProcess(debugMode,burnInPercent);
      # Rename File
-    os.rename('paramTraces.txt','paramTraces_' + str(modelType))
+    shutil.move('paramTraces.txt','Datafiles/paramTraces_' + str(modelType))
 
 
 # ====

@@ -51,7 +51,7 @@ def main(fileName,power,metric):
 
   # Read MCMC Samples and sub-samples using totInitialGuess
   #data = np.loadtxt('paramTraces.txt',skiprows=1)
-  data = np.loadtxt('paramTraces_' + str(modelType),skiprows=1)
+  data = np.loadtxt('Datafiles/paramTraces_' + str(modelType),skiprows=1)
   # SubSample
   dist = np.exp(data[:,1])/np.sum(np.exp(data[:,1]))
   print(np.random.choice(data.shape[0], totInitialGuess,p=dist))
@@ -88,8 +88,8 @@ def main(fileName,power,metric):
     Var[loopA] = np.loadtxt("optValue.txt")
 
   # Save Final Result
-  np.savetxt('OptimalPoints_' + str(modelType),results)
-  np.savetxt('OptimalValue_' + str(modelType),Var)
+  np.savetxt('Datafiles/OptimalPoints_' + str(modelType),results)
+  np.savetxt('Datafiles/OptimalValue_' + str(modelType),Var)
 
   #calculate cpu time
   cputime = time.process_time()-t1
