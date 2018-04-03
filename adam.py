@@ -68,11 +68,7 @@ def adam(alp,b1,b2,model,init):
 	x = agnp.float64(init)
 	accf = model(x)
 
-<<<<<<< HEAD
-	while (tol > 1.0e-3) | (accf > 8e-8):
-=======
 	while (tol > 1.0e-3) | (accf > 1e-5):
->>>>>>> 3cab1c1147f7a3ae1718174a07ca93f7871363f7
 		t += 1;
 		g = gradi(x)
 		m = b1*m+(1-b1)*g
@@ -87,14 +83,7 @@ def adam(alp,b1,b2,model,init):
 if __name__ == '__main__':
 	# Record the cputime for optimizing one point
 	t1=time.process_time()
-<<<<<<< HEAD
-	model =karumoto
-	#data = agnp.loadtxt('paramTraces_3R5P.txt',skiprows=1)
-	#init =  data[agnp.random.choice(1),2:]
-	init=[0.0,0.0]
-
-	t,accf=adam(0.001,0.9,0.999,model,init)
-	#One true solution
+	#One true 3R5P solution
 	# tt=agnp.array([2.46372917,  2.27559646  ,2.0060732  , 1.70833523 , 1.46246037 , 1.32661059,
  #  1.31520979 , 1.4052676  , 1.52220994  ,1.59441577  ,1.56800426 , 1.48610163,
  #  1.45399811  ,1.5690482   ,1.8111774   ,2.1323249  , 2.2147605   ,1.7708001,
@@ -113,11 +102,6 @@ if __name__ == '__main__':
  #  2.62512201e+01, -2.08685610e+00,  3.42315608e+00,  2.06091653e+01,
  # -9.89000273e+00 , 1.35133412e+01,  2.60128621e+01, -2.51400853e+00,
  #  4.70808068e+00 ,-2.13399244e-02, -9.26407023e-03,  8.32235696e-02]) 
-	gradi=jacobian(model)
-	print(agnp.linalg.norm(gradi(t))/(agnp.linalg.norm(model(t))/agnp.linalg.norm(t)))
-	cputime = time.process_time()-t1
-	print(t,accf,model(t),cputime)
-=======
 
 	# Set the model type and initial poitn
 	model = 'bvp'
@@ -125,9 +109,10 @@ if __name__ == '__main__':
 	init =  data[agnp.random.choice(1),2:]
 	# Run the adam method on the model
 	t,accf=adam(0.001,0.9,0.999,eval(model),init)
-	cputime = time.process_time()-t1
-	print(t,accf,bvp(t),cputime)
 	# compute and show the gradient of the optimal point if needed
 	gradi=grad(bvp)
-	print(gradi(t))
->>>>>>> 3cab1c1147f7a3ae1718174a07ca93f7871363f7
+	jacobian=jacobian(model)
+	print(agnp.linalg.norm(gradi(t))/(agnp.linalg.norm(model(t))/agnp.linalg.norm(t)))
+	cputime = time.process_time()-t1
+	print(t,accf,model(t),cputime)
+
