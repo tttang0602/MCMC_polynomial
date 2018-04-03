@@ -5,7 +5,7 @@ import matplotlib.mlab as mlab
 from res_3R5P import eval
 def plotres():
 	#load data
-	x = np.loadtxt('paramTraces_bvp.txt',skiprows=1)
+	x = np.loadtxt('paramTraces_3R5P.txt',skiprows=1)
 	res = np.empty([x.shape[0],24])
 	for i in range(x.shape[0]):
 		res[i,:]=eval(x[i,2:])
@@ -24,9 +24,10 @@ def plotres():
 	 
 	plt.title(r'Histogram of function residue')
 	plt.tight_layout() 
+	plt.savefig(r'Histogram_residual_3R5P.pdf')
 	plt.show()
 def plotfval():
-	x = np.loadtxt('paramTraces_bvp.txt',skiprows=1)
+	x = np.loadtxt('paramTraces_3R5P.txt',skiprows=1)
 	x = x[:,1]
 	num_bins =100
 	n,bins,patches = plt.hist(x,num_bins,normed=1,facecolor = 'blue',alpha=0.5)
