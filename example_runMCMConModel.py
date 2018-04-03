@@ -1,7 +1,8 @@
 # Imports
 import sys,os
 # Set library path
-sys.path.insert(0, '/afs/crc.nd.edu/group/tulip/01_code/01_tulip/tulipBIN/py')
+#sys.path.insert(0, '/afs/crc.nd.edu/group/tulip/01_code/01_tulip/tulipBIN/py')
+sys.path.insert(0,'/home/tang/Documents/tulipBIN/py')
 # Import UQ Library
 import tulipUQ as uq
 # Import Computational Model Library
