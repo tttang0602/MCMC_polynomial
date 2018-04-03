@@ -27,7 +27,9 @@ if __name__ == '__main__':
 	model = 'bvp'
 	frame = 3
 	#plothd(model,int(frame))
-	data = np.loadtxt('OptimalPoints_bvp.txt')
+	data = np.loadtxt('paramTraces_bvp.txt',skiprows=1)
+	data = data[1:100,2:]
+	print(data.shape)
 	fig = plt.figure()
 	ax =  plt.subplot(1,1,1)
 	x=np.linspace(0,1,21)

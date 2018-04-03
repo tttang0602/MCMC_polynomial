@@ -9,7 +9,11 @@ import seaborn as sns
 
 def plotres():
 	#load data
+<<<<<<< HEAD
 	x = np.loadtxt('Datafiles/paramTraces_3R5P.txt',skiprows=1)
+=======
+	x = np.loadtxt('paramTraces_3R5P.txt',skiprows=1)
+>>>>>>> 7dc45e3699ea2ca1594680a1ed74c303a351ecab
 	res = np.empty([x.shape[0],24])
 	for i in range(x.shape[0]):
 		res[i,:]=eval(x[i,2:])
@@ -28,6 +32,7 @@ def plotres():
 	 
 	plt.title(r'Histogram of function residue')
 	plt.tight_layout() 
+	plt.savefig(r'Histogram_residual_3R5P.pdf')
 	plt.show()
 def plotfval(model):
 	path = str(os.getcwd())+'/Graphes'
